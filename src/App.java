@@ -1,6 +1,7 @@
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -43,16 +44,32 @@ public class App {
         /*
          * exibir e manipular os dados na aplicação
          */
+        GeradorDeStickers gerador = new GeradorDeStickers();
 
         for (Map<String, String> filme : listaDeFilmes) {
+
+            /*
+             * Gerando stickers para cada um dos filmes da lista
+             */
+            String urlImagem = filme.get("image");
+            InputStream inputStream = new URL(urlImagem).openStream();
+
+            String tituloFilme = filme.get("fullTitle");
+
+            gerador.geraSticker(inputStream, tituloFilme);
+
+            /*
+             * Printando as principais informações do filme
+             */
+
             System.out.println("Título: " + filme.get("title"));
-            System.out.println("Poster: " + filme.get("image"));
-            System.out.println("\u001b[1m\u001b[45m" + "Classificação: " + filme.get("imDbRating") + "\u001b[m");
-            double classificacao = Double.parseDouble(filme.get("imDbRating"));
-            int numeroDeEstrelas = (int) classificacao;
-            for(int i = 1; i <= numeroDeEstrelas; i++) {
-                System.out.print("⭐");
-            }   
+            // System.out.println("Poster: " + filme.get("image"));
+            // System.out.println("\u001b[1m\u001b[45m" + "Classificação: " + filme.get("imDbRating") + "\u001b[m");
+            // double classificacao = Double.parseDouble(filme.get("imDbRating"));
+            // int numeroDeEstrelas = (int) classificacao;
+            // for(int i = 1; i <= numeroDeEstrelas; i++) {
+            //     System.out.print("⭐");
+            // }
             System.out.println("\n");
         }
     }
