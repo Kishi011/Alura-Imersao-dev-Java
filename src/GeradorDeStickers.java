@@ -11,16 +11,29 @@ import javax.imageio.ImageIO;
 
 public class GeradorDeStickers {
 
-    private File criaNovaImagem(String nomeArquivo) throws IOException {
-        File diretorio = new File("D:/Vini/Alura/Java-ImersaoDev/ConsumindoAPIStickers/saida");
-        diretorio.mkdir(); // cria o diretório baseado no caminho dele
-        File novoArquivoDeImagem = new File(diretorio, nomeArquivo + ".png");
-        novoArquivoDeImagem.createNewFile(); // cria o arquivo
+    private File organizaDiretorio(String diretorioDeDestino) {
+        File diretorio = new File("D:/Vini/Alura/Java-ImersaoDev/ConsumindoAPIStickers/stickers");
+        diretorio.mkdir();  // cria o diretório baseado no caminho dele
+        diretorio = new File(diretorio, diretorioDeDestino);
+        diretorio.mkdir();
 
-        return novoArquivoDeImagem;
+        return diretorio;
     }
 
-    public void geraSticker(InputStream inputStream, String nomeArquivo) throws IOException {
+    private File criaNovaImagem(String nomeArquivo, String diretorioDeDestino) {
+        try {
+            File diretorio = organizaDiretorio(diretorioDeDestino);
+            File novoArquivoDeImagem = new File(diretorio, nomeArquivo + ".png");
+            novoArquivoDeImagem.createNewFile(); // cria o arquivo
+            return novoArquivoDeImagem;
+
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public void geraSticker(InputStream inputStream, String nomeArquivo, String diretorioDeDestino) throws IOException {
         /*
          * Fazer a leitura da imagem
          */
@@ -52,7 +65,7 @@ public class GeradorDeStickers {
         /*
          * Escrever a imagem nova em um arquivo
          */
-        File novoArquivoDeImagem = criaNovaImagem(nomeArquivo);
+        File novoArquivoDeImagem = criaNovaImagem(nomeArquivo, diretorioDeDestino);
         ImageIO.write(novaImagem, "png", novoArquivoDeImagem);
     }
 }

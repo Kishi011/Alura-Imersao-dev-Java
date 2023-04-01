@@ -14,7 +14,7 @@ public class App {
         Properties props = new Properties();
         InputStream file = new FileInputStream("configuracoes.properties");
         props.load(file); // carrega o arquivo .properties na variavel.
-        String url = props.getProperty("prop.url");
+        String url = props.getProperty("url.imdb");
         /*
          * Pegar somente os dados interesantes para a aplicação
          * extrair os seguintes dados (titulo, poster, avaliação).
@@ -23,7 +23,7 @@ public class App {
         var http = new ClienteHttp();
         String json = http.buscaDados(url);
 
-        ExtratorDeConteudo extrator = new ExtratorDeConteudo();
+        ExtratorDeConteudo extrator = new ExtratorDeConteudoIMDB();
         List<Conteudo> listaDeConteudos = extrator.extraiConteudos(json);
         /*
          * exibir e manipular os dados na aplicação
@@ -38,9 +38,7 @@ public class App {
             String urlImagem = conteudo.getUrlImagem();
             InputStream inputStream = new URL(urlImagem).openStream();
 
-            String tituloFilme = conteudo.getTitulo();
-
-            gerador.geraSticker(inputStream, tituloFilme);
+            gerador.geraSticker(inputStream, conteudo.getTitulo(), conteudo.getTipoDeConteudo());
 
             /*
              * Printando as principais informações do filme
