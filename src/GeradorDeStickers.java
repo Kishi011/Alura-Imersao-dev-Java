@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 public class GeradorDeStickers {
 
     private File criaNovaImagem(String nomeArquivo) throws IOException {
-        File diretorio = new File("D:\\Vini\\Alura\\Java-ImersaoDev\\ConsumindoAPIStickers\\saida");
+        File diretorio = new File("D:/Vini/Alura/Java-ImersaoDev/ConsumindoAPIStickers/saida");
         diretorio.mkdir(); // cria o diretório baseado no caminho dele
         File novoArquivoDeImagem = new File(diretorio, nomeArquivo + ".png");
         novoArquivoDeImagem.createNewFile(); // cria o arquivo
