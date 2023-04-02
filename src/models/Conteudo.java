@@ -1,37 +1,29 @@
 package models;
-public class Conteudo {
-    private final String titulo;
-    private final String urlImagem;
-    private final String diretorioDeDestino;
+/*
+ * Refatorando a Classe Conteudo em um Record
+ * 
+ * Record foi implementado definitivamente no Java a partir da versao 16. Geralmente sao implementados somente em classes para leitura de atributos.
+ * 
+ * Eles funcionam como uma classe com seus atributos e metodos get() sem o setters,
+ * pois seu conteudo eh imutavel.
+ * 
+ * - Nao podem herdar de uma classe mae;
+ * - Nao podem ser abstratas;
+ * - Todos os seus atributos sao final, ou seja, nao podem ser reatribuidos;
+ */
 
-    /**
-     * @param titulo
-     * @param urlImagem
-     */
-    public Conteudo(String titulo, String urlImagem, String diretorioDeDestino) {
-        this.titulo = titulo;
-        this.urlImagem = urlImagem;
-        this.diretorioDeDestino = diretorioDeDestino;
-    }
+// sintaxe para declaracao de um record
+public record Conteudo (String titulo, String urlImagem, String diretorioDeDestino){
 
-    /**
-     * @return the titulo
+    /*
+     * Records podem ter mais de um construtor para instancia com diferentes atributos.
+     * 
+     * No entanto, eh necessario chamar o construtor padrao da classe passando os demais atributos como null.
+     * 
+     * Exemplo abaixo:
      */
-    public String getTitulo() {
-        return titulo;
-    }
 
-    /**
-     * @return the urlImagem
-     */
-    public String getUrlImagem() {
-        return urlImagem;
-    }
-
-    /**
-     * @return the tipoDeConteudo
-     */
-    public String getDiretorioDeDestino() {
-        return diretorioDeDestino;
-    }
+    // public Conteudo(String titulo) {
+    //     this(titulo, null, null);
+    // }
 }
