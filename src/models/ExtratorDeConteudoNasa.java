@@ -18,7 +18,7 @@ public class ExtratorDeConteudoNasa implements ExtratorDeConteudo{
         List<Map<String, String>> listaDeAtributos = jParser.parse(json);
         
         return listaDeAtributos.stream()
-                        .map((Map<String, String> atributos) -> new Conteudo(atributos.get("title"), atributos.get("url"), "Nasa"))
+                        .map(atributos -> new Conteudo(atributos.get("title"), atributos.get("url"), "Nasa"))
                         .toList();
     }
 }
