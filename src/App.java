@@ -1,20 +1,19 @@
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
-import java.util.Properties;
+
+import models.ClienteHttp;
+import models.Conteudo;
+import models.ExtratorDeConteudo;
+import models.ExtratorDeConteudoNasa;
+import models.ExtratorDeConteudoIMDB;
+import models.GeradorDeStickers;
+import models.LeitorProperties;
 
 public class App {
     public static void main(String[] args) throws Exception {
 
-        /*
-         * Criando um arquivo .properties separado para guardar a url do Json,
-         * isso oculta dados sensiveis dentro do nosso codigo.
-         */
-        Properties props = new Properties();
-        InputStream file = new FileInputStream("configuracoes.properties");
-        props.load(file); // carrega o arquivo .properties na variavel.
-        String url = props.getProperty("url.imdb");
+        String url = LeitorProperties.lePropertie("url.nasa");
         /*
          * Pegar somente os dados interesantes para a aplicação
          * extrair os seguintes dados (titulo, poster, avaliação).
@@ -23,8 +22,8 @@ public class App {
         var http = new ClienteHttp();
         String json = http.buscaDados(url);
 
-        ExtratorDeConteudo extrator = new ExtratorDeConteudoIMDB();
-        List<Conteudo> listaDeConteudos = extrator.extraiConteudos(json);
+        ExtratorDeConteudo extrator = new ExtratorDeConteudoNasa();
+        List<Conteudo> listaDeConteudos = extrator.extraiConteudos(json, url);
         /*
          * exibir e manipular os dados na aplicação
          */
@@ -38,7 +37,7 @@ public class App {
             String urlImagem = conteudo.getUrlImagem();
             InputStream inputStream = new URL(urlImagem).openStream();
 
-            gerador.geraSticker(inputStream, conteudo.getTitulo(), conteudo.getTipoDeConteudo());
+            gerador.geraSticker(inputStream, conteudo.getTitulo(), conteudo.getDiretorioDeDestino());
 
             /*
              * Printando as principais informações do filme

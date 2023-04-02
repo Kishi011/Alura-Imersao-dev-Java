@@ -1,16 +1,17 @@
+package models;
 public class Conteudo {
     private final String titulo;
     private final String urlImagem;
-    private final String tipoDeConteudo;
+    private final String diretorioDeDestino;
 
     /**
      * @param titulo
      * @param urlImagem
      */
-    public Conteudo(String titulo, String urlImagem, String tipoDeConteudo) {
+    public Conteudo(String titulo, String urlImagem, String diretorioDeDestino) {
         this.titulo = titulo;
         this.urlImagem = urlImagem;
-        this.tipoDeConteudo = tipoDeConteudo;
+        this.diretorioDeDestino = diretorioDeDestino;
     }
 
     /**
@@ -30,7 +31,7 @@ public class Conteudo {
     /**
      * @return the tipoDeConteudo
      */
-    public String getTipoDeConteudo() {
-        return tipoDeConteudo;
+    public String getDiretorioDeDestino() {
+        return diretorioDeDestino;
     }
 }
